@@ -4,6 +4,8 @@ const selectorWarning ="#divWarning";
 const selectorLogin ="#divLogin";
 const buttonToDisable="#_sieca_login_portlet_SiecaLoginPortlet_INSTANCE_ol1DXZlErfD3_inys";
 const validaAmbitente="uat";
+const loginContainer =".login-container";
+
 
 function validaFallos(){
 	const url = 'https://api.statuscake.com/v1/uptime';
@@ -36,11 +38,16 @@ function mostrarLogin(response){
 		$(selectorLogin).show();
 		$(selectorWarning).hide();
 		$(buttonToDisable).removeAttr("disabled");
-		
+		$('#dvFueraServicioPDCC').remove();
 	}else{
 		$(selectorWarning).show();						
-		$(selectorLogin).hide();						
+		$(selectorLogin).hide();					
 		$(buttonToDisable).attr("disabled","disabled");
+		var contenidoActual = $(loginContainer).html();
+		var nuevoContenido = '<div class="alert alert-danger" id="dvFueraServicioPDCC">Sistema no disponible, intente mas tarde</div>';
+		var contenidoFinal = nuevoContenido + contenidoActual;
+		$(loginContainer).html(contenidoFinal);
+		
 	}
 	
 }
